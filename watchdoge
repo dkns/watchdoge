@@ -3,7 +3,14 @@
 # TODO: add timeout option; make it configurable
 # TODO: make it work on whole dir eg. run command if any file in dir changes
 
+oneline_usage="watchdoge [file] [command]"
 file=$1
+
+if [ -z "$file" ]; then
+  echo "$oneline_usage"
+  exit 0
+fi
+
 shift
 run_command="$*"
 inithash="$(md5sum "$file")"
@@ -20,7 +27,7 @@ while :; do
     echo "Running command: $run_command"
     echo
     cd "$work_dir"
-    timeout 50.0 "$run_command"
+    #timeout 50.0 "$run_command"
   fi
   sleep 1
 done
